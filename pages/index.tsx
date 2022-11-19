@@ -28,12 +28,22 @@ const DUMMY_MEETUPS: Meetup[] = [
   },
 ];
 
-function HomePage() {
+function HomePage(props: { meetups: Meetup[] }) {
   return (
     <div>
-      <MeetupList meetups={DUMMY_MEETUPS} />
+      <MeetupList meetups={props.meetups} />
     </div>
   );
+}
+
+export async function getStaticProps() {
+  //executes during the buid process
+  // fetch data from API
+  return {
+    props: {
+      meetups: DUMMY_MEETUPS,
+    },
+  };
 }
 
 export default HomePage;

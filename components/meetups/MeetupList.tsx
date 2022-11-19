@@ -6,6 +6,7 @@ export type Meetup = {
   title: string;
   image: string;
   address: string;
+  description?: string;
 };
 
 function MeetupList({ meetups }: { meetups: Meetup[] }) {
