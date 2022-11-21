@@ -5,7 +5,7 @@ import type { Meetup } from './MeetupList';
 import classes from './NewMeetupForm.module.css';
 
 export interface INewMeetupForm {
-  onAddMeetup: (data: Meetup) => void;
+  onAddMeetup: (data: Partial<Meetup>) => void;
 }
 
 function NewMeetupForm(props: INewMeetupForm) {
@@ -22,8 +22,8 @@ function NewMeetupForm(props: INewMeetupForm) {
     const enteredAddress = addressInputRef.current.value;
     const enteredDescription = descriptionInputRef.current.value;
 
-    const meetupData: Meetup = {
-      id: new Date().toISOString(),
+    const meetupData: Partial<Meetup> = {
+      time: new Date().toISOString(),
       title: enteredTitle,
       image: enteredImage,
       address: enteredAddress,
@@ -41,7 +41,7 @@ function NewMeetupForm(props: INewMeetupForm) {
           <input type='text' required id='title' ref={titleInputRef} />
         </div>
         <div className={classes.control}>
-          <label htmlFor='image'>Meetup Image</label>
+          <label htmlFor='image'>Meetup Image URL</label>
           <input type='url' required id='image' ref={imageInputRef} />
         </div>
         <div className={classes.control}>

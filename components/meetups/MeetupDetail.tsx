@@ -3,6 +3,8 @@ import { Meetup } from './MeetupList';
 import classes from './MeetupDetail.module.css';
 
 function MeetupDetail(props: Meetup) {
+  console.log('MeetupDetail');
+
   return (
     <section className={classes.detail}>
       <img className={classes.image} src={props.image} alt={props.title} />
