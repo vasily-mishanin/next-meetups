@@ -1,15 +1,20 @@
-import { useRef } from 'react';
+import React, { useRef } from 'react';
 
 import Card from '../ui/Card';
+import type { Meetup } from './MeetupList';
 import classes from './NewMeetupForm.module.css';
 
-function NewMeetupForm(props) {
-  const titleInputRef = useRef();
-  const imageInputRef = useRef();
-  const addressInputRef = useRef();
-  const descriptionInputRef = useRef();
+export interface INewMeetupForm {
+  onAddMeetup: (data: Partial<Meetup>) => void;
+}
 
-  function submitHandler(event) {
+function NewMeetupForm(props: INewMeetupForm) {
+  const titleInputRef = useRef<HTMLInputElement>(null!);
+  const imageInputRef = useRef<HTMLInputElement>(null!);
+  const addressInputRef = useRef<HTMLInputElement>(null!);
+  const descriptionInputRef = useRef<HTMLTextAreaElement>(null!);
+
+  function submitHandler(event: React.FormEvent) {
     event.preventDefault();
 
     const enteredTitle = titleInputRef.current.value;
@@ -17,7 +22,8 @@ function NewMeetupForm(props) {
     const enteredAddress = addressInputRef.current.value;
     const enteredDescription = descriptionInputRef.current.value;
 
-    const meetupData = {
+    const meetupData: Partial<Meetup> = {
+      time: new Date().toISOString(),
       title: enteredTitle,
       image: enteredImage,
       address: enteredAddress,
@@ -35,7 +41,7 @@ function NewMeetupForm(props) {
           <input type='text' required id='title' ref={titleInputRef} />
         </div>
         <div className={classes.control}>
-          <label htmlFor='image'>Meetup Image</label>
+          <label htmlFor='image'>Meetup Image URL</label>
           <input type='url' required id='image' ref={imageInputRef} />
         </div>
         <div className={classes.control}>
@@ -44,12 +50,7 @@ function NewMeetupForm(props) {
         </div>
         <div className={classes.control}>
           <label htmlFor='description'>Description</label>
-          <textarea
-            id='description'
-            required
-            rows='5'
-            ref={descriptionInputRef}
-          ></textarea>
+          <textarea id='description' required rows={5} ref={descriptionInputRef}></textarea>
         </div>
         <div className={classes.actions}>
           <button>Add Meetup</button>

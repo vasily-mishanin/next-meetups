@@ -1,0 +1,15 @@
+.detail {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+  align-items: center;
+}
+.image {
+  width: 100%;
+}
+.title {
+}
+.address {
+}
+.description {
+}

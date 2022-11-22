@@ -1,7 +1,8 @@
 import MainNavigation from './MainNavigation';
 import classes from './Layout.module.css';
+import React from 'react';
 
-function Layout(props) {
+function Layout(props: { children: React.ReactNode }) {
   return (
     <div>
       <MainNavigation />
