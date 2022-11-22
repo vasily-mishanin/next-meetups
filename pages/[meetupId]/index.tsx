@@ -44,9 +44,9 @@ export const getStaticPaths: GetStaticPaths = async () => {
   client.close();
 
   return {
-    fallback: false, // no altering in pregenerated paths, only those are in paths:[]
+    //fallback: false, // no altering in pregenerated paths, only those are in paths:[]
     // fallback: true, // next will try generate paths when user enters another path
-    // fallback: 'blocking', // show nothing untill generation of the page
+    fallback: 'blocking', // show nothing untill generation of the page
     paths: meetupsIdsFromDB.map((meetup) => ({
       params: {
         meetupId: meetup._id.toString(),

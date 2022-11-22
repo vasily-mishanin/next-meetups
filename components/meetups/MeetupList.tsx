@@ -14,8 +14,6 @@ function MeetupList({ meetups }: { meetups: Meetup[] }) {
   console.log('List', meetups);
   return (
     <ul className={classes.list}>
-      {' '}
-      LIST
       {meetups.map((meetup) => (
         <MeetupItem
           key={meetup.id}
