@@ -3,6 +3,8 @@ import MeetupList from '../components/meetups/MeetupList';
 import type { Meetup } from '../components/meetups/MeetupList';
 import { GetStaticProps } from 'next';
 import { MongoClient } from 'mongodb';
+import Head from 'next/head';
+import { Fragment } from 'react';
 
 // const DUMMY_MEETUPS: Meetup[] = [
 //   {
@@ -36,7 +38,15 @@ interface IMeetups {
 
 function HomePage(props: IMeetups) {
   console.log('HomePage');
-  return <MeetupList meetups={props.meetups} />;
+  return (
+    <Fragment>
+      <Head>
+        <title>Meetups</title>
+        <meta name='description' content='Create, store, browse and use a highly reactive list of meetups' />
+      </Head>
+      <MeetupList meetups={props.meetups} />
+    </Fragment>
+  );
 }
 
 // THIS CODE WILL RUN ON THE SERVER
@@ -77,7 +87,7 @@ export const getStaticProps: GetStaticProps = async () => {
   };
   return {
     props: staticProps,
-    revalidate: 10, // ecery 10 seconds it will be SSG on the srever for newer data
+    revalidate: 2, // ecery 10 seconds it will be SSG on the srever for newer data
   };
 };
 

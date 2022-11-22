@@ -4,6 +4,7 @@ import MeetupDetail from '../../components/meetups/MeetupDetail';
 import type { GetStaticProps, GetStaticPaths } from 'next';
 import type { Meetup } from '../../components/meetups/MeetupList';
 import { MongoClient, ObjectId } from 'mongodb';
+import Head from 'next/head';
 
 interface IMeetupDetail {
   meetupData: Meetup;
@@ -13,6 +14,10 @@ function MeetupPage(props: IMeetupDetail) {
   console.log('MeetupPage');
   return (
     <Fragment>
+      <Head>
+        <title>{props.meetupData.title}</title>
+        <meta name='description' content={props.meetupData.description} />
+      </Head>
       <MeetupDetail
         id={props.meetupData.id}
         time={props.meetupData.time}
@@ -40,7 +45,8 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
   return {
     fallback: false, // no altering in pregenerated paths, only those are in paths:[]
-    //fallback: true, // next will try generate paths when user enters another path
+    // fallback: true, // next will try generate paths when user enters another path
+    // fallback: 'blocking', // show nothing untill generation of the page
     paths: meetupsIdsFromDB.map((meetup) => ({
       params: {
         meetupId: meetup._id.toString(),
