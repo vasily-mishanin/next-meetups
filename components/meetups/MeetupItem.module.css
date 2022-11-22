@@ -8,6 +8,7 @@
   overflow: hidden;
   border-top-right-radius: 6px;
   border-top-left-radius: 6px;
+  position: relative;
 }
 
 .image img {
@@ -17,16 +18,17 @@
 
 .content {
   text-align: center;
-  padding: 1rem;
+  padding: 0.25rem;
 }
 
-.content h3 {
+.content h2 {
   font-size: 1.25rem;
   color: #2c292b;
+  margin: 0.25rem;
 }
 
 .actions {
-  padding: 1.5rem;
+  padding: 0.5rem;
   text-align: center;
 }
 

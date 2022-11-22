@@ -2,6 +2,8 @@ import Card from '../ui/Card';
 import classes from './MeetupItem.module.css';
 import type { Meetup } from './MeetupList';
 import { useRouter } from 'next/router';
+import Image from 'next/image';
+import { mountainsImagePlaceholder } from '../../assets/mountainsImagePlaceholder';
 
 function MeetupItem(props: Meetup) {
   const router = useRouter();
@@ -15,10 +17,18 @@ function MeetupItem(props: Meetup) {
     <li className={classes.item}>
       <Card>
         <div className={classes.image}>
-          <img src={props.image} alt={props.title} />
+          <Image
+            src={props.image}
+            alt={props.title}
+            fill
+            // width={500}
+            // height={400}
+            placeholder='blur'
+            blurDataURL={mountainsImagePlaceholder}
+          />
         </div>
         <div className={classes.content}>
-          <h3>{props.title}</h3>
+          <h2>{props.title}</h2>
           <address>{props.address}</address>
         </div>
         <div className={classes.actions}>

@@ -5,39 +5,15 @@ import { GetStaticProps } from 'next';
 import { MongoClient } from 'mongodb';
 import Head from 'next/head';
 import { Fragment } from 'react';
-
-// const DUMMY_MEETUPS: Meetup[] = [
-//   {
-//     id: 'm1',
-//     title: 'A Fist MeetUp',
-//     image:
-//       'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Stadtbild_M%C3%BCnchen.jpg/1600px-Stadtbild_M%C3%BCnchen.jpg?20130611211153',
-//     address: 'Old Town of Munich (Germany)',
-//   },
-
-//   {
-//     id: 'm2',
-//     title: 'A Second MeetUp',
-//     image:
-//       'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Stadtbild_M%C3%BCnchen.jpg/1600px-Stadtbild_M%C3%BCnchen.jpg?20130611211153',
-//     address: 'Old Town of Munich (Germany)',
-//   },
-
-//   {
-//     id: 'm3',
-//     title: 'A Three MeetUp',
-//     image:
-//       'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Stadtbild_M%C3%BCnchen.jpg/1600px-Stadtbild_M%C3%BCnchen.jpg?20130611211153',
-//     address: 'Old Town of Munich (Germany)',
-//   },
-// ];
+// import dotenv from 'dotenv-safe';
+// dotenv.config();
 
 interface IMeetups {
   meetups: Meetup[];
 }
 
 function HomePage(props: IMeetups) {
-  console.log('HomePage');
+  console.log('HomePage', process.env.NEXT_PUBLIC_MY_PUBLIC_ENV_VAR);
   return (
     <Fragment>
       <Head>
@@ -67,8 +43,9 @@ function HomePage(props: IMeetups) {
 export const getStaticProps: GetStaticProps = async () => {
   //executes during the buid process
   // connect and save get data from database
-  const databaseURI =
-    'mongodb+srv://admin-vasily:vm6rJTtrHFjlwntr@todocluster.kf4x7.mongodb.net/?retryWrites=true&w=majority';
+  const USER = process.env.DB_USERNAME;
+  const PASS = process.env.DB_PASSWORD;
+  const databaseURI = `mongodb+srv://${USER}:${PASS}@todocluster.kf4x7.mongodb.net/?retryWrites=true&w=majority`;
   const client = await MongoClient.connect(databaseURI);
   //use only URL encoded characters
   const db = client.db('meetupsDB');
@@ -87,7 +64,7 @@ export const getStaticProps: GetStaticProps = async () => {
   };
   return {
     props: staticProps,
-    revalidate: 2, // ecery 10 seconds it will be SSG on the srever for newer data
+    revalidate: 2, // every 2 seconds it will be SSG on the srever for newer data
   };
 };
 

@@ -1,4 +1,3 @@
-import { useRouter } from 'next/router';
 import { Fragment } from 'react';
 import MeetupDetail from '../../components/meetups/MeetupDetail';
 import type { GetStaticProps, GetStaticPaths } from 'next';
@@ -33,8 +32,11 @@ export default MeetupPage;
 
 export const getStaticPaths: GetStaticPaths = async () => {
   // connect and save get data from database
-  const databaseURI =
-    'mongodb+srv://admin-vasily:vm6rJTtrHFjlwntr@todocluster.kf4x7.mongodb.net/?retryWrites=true&w=majority';
+
+  const USER = process.env.DB_USERNAME;
+  const PASS = process.env.DB_PASSWORD;
+  const databaseURI = `mongodb+srv://${USER}:${PASS}@todocluster.kf4x7.mongodb.net/?retryWrites=true&w=majority`;
+
   const client = await MongoClient.connect(databaseURI);
   //use only URL encoded characters
   const db = client.db('meetupsDB');
@@ -61,8 +63,10 @@ export const getStaticProps: GetStaticProps = async (context) => {
   // fetch and return
   // connect and save get data from database
 
-  const databaseURI =
-    'mongodb+srv://admin-vasily:vm6rJTtrHFjlwntr@todocluster.kf4x7.mongodb.net/?retryWrites=true&w=majority';
+  const USER = process.env.DB_USERNAME;
+  const PASS = process.env.DB_PASSWORD;
+  const databaseURI = `mongodb+srv://${USER}:${PASS}@todocluster.kf4x7.mongodb.net/?retryWrites=true&w=majority`;
+
   const client = await MongoClient.connect(databaseURI);
   const db = client.db('meetupsDB');
   const meetupCollection = db.collection('meetups');

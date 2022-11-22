@@ -13,9 +13,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     const data = req.body;
     console.log('handler', data);
     // connect and save data in database
-    const uri =
-      'mongodb+srv://admin-vasily:vm6rJTtrHFjlwntr@todocluster.kf4x7.mongodb.net/?retryWrites=true&w=majority';
-    const client = await MongoClient.connect(uri);
+    const USER = process.env.DB_USERNAME;
+    const PASS = process.env.DB_PASSWORD;
+    const databaseURI = `mongodb+srv://${USER}:${PASS}@todocluster.kf4x7.mongodb.net/?retryWrites=true&w=majority`;
+    const client = await MongoClient.connect(databaseURI);
     //use only URL encoded characters
     const db = client.db('meetupsDB');
     const meetupCollection = db.collection('meetups');
